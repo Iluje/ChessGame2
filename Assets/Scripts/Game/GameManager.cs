@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [SerializeField] private Piece BlackKnight;
     [SerializeField] private Piece BlackBishop;
 
-    [SerializeField] private GameObject _pieceParent;
+    [SerializeField] private Transform _pieceParent;
     [SerializeField] private GameObject _piecePrefab;
     [SerializeField] private GameObject _emptyPrefab;
 
@@ -50,20 +50,17 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         {
             for (int y = 0; y < Pieces.GetLength(1); y++)
             {
-
-                GameObject NewPiece;
-                
+                GameObject newPiece;
                 if (Pieces[x,y] != null)
                 {
-                   NewPiece = Instantiate(_piecePrefab, _pieceParent.transform);
-                   NewPiece.GetComponent<PieceHandler>().Setup(Pieces[x,y], new Vector2Int(x,y));
+                   newPiece = Instantiate(_piecePrefab, _pieceParent);
+                   newPiece.GetComponent<PieceHandler>().Setup(Pieces[x,y], new Vector2Int(x,y));
                 }
                 else
                 {
-                    NewPiece = Instantiate(_emptyPrefab, _pieceParent.transform);
-                    NewPiece.GetComponent<PieceHandler>().SetupEmpty(new Vector2Int(x, y));
+                    newPiece = Instantiate(_emptyPrefab, _pieceParent);
+                    newPiece.GetComponent<PieceHandler>().SetupEmpty(new Vector2Int(x, y));
                 }
-                
             }
         }
     }
